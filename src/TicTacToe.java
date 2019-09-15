@@ -2,11 +2,13 @@ import java.util.Scanner;
 
 public class TicTacToe {
     public static void main(String[] args) {
-        Board b = new Board(3);
-        Game g = new Game(b);
-        Scanner scanner = new Scanner(System.in);
-        int x = 0, y = 0;
         System.out.println("Welcome to the Tic Tac Toe Game!");
+        System.out.println("Choose your board dimension: e.g. 3");
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        Board b = new Board(n);
+        Game g = new Game(b);
+        int x = 0, y = 0;
         do {
             System.out.println(g.player == g.X ? "Player X turn": "Player O turn");
             g.display();
