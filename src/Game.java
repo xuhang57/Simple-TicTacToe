@@ -1,36 +1,51 @@
-import java.util.Arrays;
-
 public class Game {
-    public static final int X = 1;
-    public static final int O = -1;
-    public static final int empty = 0;
+    private static final int X = 1;
+    private static final int O = -1;
+    private static final int empty = 0;
 
-    public int player = X;
-    public int[][] board;
-    public int size;
-    public boolean isEmpty = true;
+    private int player;
+    private int[][] board;
+    private int size;
+    private boolean isEmpty = true;
 
+    // assuming the first player is player X
     public Game(Board board) {
-        this.board = board.board;
+        int[][] b = board.getBoard();
+        this.board = b;
         this.size = this.board.length;
+        this.player = X;
+    }
+
+    // depends on user's input to select a player
+    public Game(Board board, Player p) {
+        int[][] b = board.getBoard();
+        this.board = b;
+        this.size = this.board.length;
+        int playerName = p.getName();
+        if (playerName == 1) {
+            this.player = X;
+        } else {
+            this.player = O;
+        }
     }
 
     public void putSign(int x, int y) {
-        if (x < 0 || x >= size || y < 0 || y >= size) {
+        if (x < 0 || x >= this.size || y < 0 || y >= this.size) {
             System.out.println("Invalid Board Position");
             return;
         }
 
-        if (this.board[x][y] != empty) {
+        if (this.board[x][y] != this.empty) {
             System.out.println("Board Position Occupied");
             return;
         }
 
-        this.board[x][y] = player; // place the mark for the current player
-        player = -player; // switch player
+        this.board[x][y] = this.player; // place the mark for the current player
+        this.player = -this.player; // switch player
     }
 
     public boolean isWin(int player) {
+        // 3 different winning rules in general
         return (this.checkDiagonal(player) || this.checkHorizontal(player) || this.checkVertical(player));
     }
 
@@ -107,8 +122,7 @@ public class Game {
                 }
             }
         }
-
-        System.out.println(Arrays.toString(b));
+        // display the current board depends on the size of the board
         for (int i = 0; i < size; i++) {
             System.out.print("+---");
         }
@@ -125,5 +139,17 @@ public class Game {
             }
             System.out.println("+");
         }
+    }
+
+    public int getPlayer() {
+        return this.player;
+    }
+
+    public int getXTick() {
+        return this.X;
+    }
+
+    public boolean isEmpty() {
+        return this.isEmpty;
     }
 }
