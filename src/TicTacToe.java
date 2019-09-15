@@ -14,14 +14,15 @@ public class TicTacToe {
         // x is the row and y is the col on the board.
         int x = 0, y = 0;
         // display the empty board
-        g.display();
+        b.display();
         do {
             System.out.println(g.getPlayer() == g.getXTick() ? "Player X turn": "Player O turn");
             System.out.println("Enter x and y positions: (e.g. 1 2)");
             x = scanner.nextInt();
             y = scanner.nextInt();
             g.putSign(x, y);
-            g.display();
+            b.display();
+            // check winner or continue
             g.displayWinner();
         } while(g.isEmpty()); // as long as the board is not full or neither player has won, keep running
     }
